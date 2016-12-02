@@ -1,0 +1,11 @@
+.zns_calendar{background:#fff;width:210px; border:1px solid #ccc; position:absolute; top:0; left:500px; display:none;;}
+.zns_calendar a{position:absolute; top:3px; text-decoration: none;}
+.zns_calendar .left{left:3px;}
+.zns_calendar .right{right:3px;}
+.zns_calendar h3{ height:30px; text-align: center; line-height: 30px;border-bottom: 1px solid #ccc;}
+.zns_calendar ol{border-bottom:1px solid #ccc;}
+.zns_calendar ol,.zns_calendar ul{overflow: hidden;}
+.zns_calendar ol li,.zns_calendar ul li{float:left; width:30px; height:30px; text-align: center; line-height: 30px; }
+.zns_calendar li.weekEnd{color:#f90;}
+.zns_calendar li.today{color:#f00; background:#ccc;}
+.zns_calendar li.past{color:gray;}

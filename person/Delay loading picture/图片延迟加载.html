@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Document</title>
+<style type="text/css">
+*{margin: 0;padding: 0;}
+#box{width:900px; margin:0 auto; overflow: hidden;}
+img{width:300px; height:400px; float:left; }
+</style>
+<script type="text/javascript">
+//getPos
+function getPos(obj){
+	var l = 0;
+	var t = 0;
+	while(obj){
+		l+=obj.offsetLeft;
+		t+=obj.offsetTop;
+		obj = obj.offsetParent;
+	}
+	return [l,t];
+}
+window.onload=window.onscroll=window.onresize=function(){
+	var oBox = document.getElementById('box');
+	var aImg = oBox.children;
+	var scrollTop = document.documentElement.scrollTop||document.body.scrollTop;
+	var scrollBottom = scrollTop+document.documentElement.clientHeight;
+	for(var i=0;i<aImg.length;i++){
+		if(getPos(aImg[i])[1]<scrollBottom){
+			aImg[i].setAttribute('src',aImg[i].getAttribute('_src'));
+		}
+	}
+};
+</script>
+</head>
+<body>
+<div id="box">
+	<img _src="img/b1.jpg"/>
+	<img _src="img/b2.jpg"/>
+	<img _src="img/b3.jpg"/>
+	<img _src="img/b4.jpg"/>
+	<img _src="img/b5.jpg"/>
+	<img _src="img/b6.jpg"/>
+	<img _src="img/b7.jpg"/>
+	<img _src="img/b8.jpg"/>
+	<img _src="img/b9.jpg"/>
+	<img _src="img/b10.jpg"/>
+</div>	
+</body>
+</html>

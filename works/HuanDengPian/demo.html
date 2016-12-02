@@ -1,0 +1,127 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>无缝滚动幻灯片</title>
+<style>
+*{ margin:0; padding:0; list-style:none;}
+#box{ width:688px; height:344px; position:relative; margin:50px auto; overflow:hidden;}
+#box ul{ position:absolute; left:0; top:0;}
+#box ul li{ float:left; width:688px; height:344px;}
+#box ul li img{width:688px; height:344px;}
+
+#box a{ transition:.2s all ease;}
+#box .prev,#box .next{position:absolute;  top:50%; z-index:2; height:112px; line-height:112px; background:rgba(0,0,0,0.6); color:#fff; width:76px; text-align:center; margin-top:-40px; display:none;}
+#box .prev{ left:0; background:url(img2/prev.png) no-repeat left top;}
+#box .next{ right:0; background:url(img2/next.png) no-repeat left top;}
+
+#box ol{ position:absolute; width:120px; left:50%; margin-left:-60px; bottom:10px;}
+#box ol li{ width:20px; height:20px; background:#f60; float:left; margin:2px; text-align:center; text-indent:-9999px; border-radius:50%;}
+#box ol li.active{ background:#fff;}
+</style>
+<script>
+window.onload=function(){
+	var oBox=document.getElementById('box');
+	var oPrev=oBox.children[0];
+	var oNext=oBox.children[1];
+	var oUl=oBox.getElementsByTagName('ul')[0];
+	var aLi=oUl.children;
+	var oOl=oBox.getElementsByTagName('ol')[0];
+	var aBtn=oOl.children;
+	
+	oUl.innerHTML+=oUl.innerHTML;
+	oUl.style.width=aLi.length*aLi[0].offsetWidth+'px';
+	
+	var W=oUl.offsetWidth/2;
+	
+	var iNow=0;
+	
+	oBox.onmouseover=function(){
+		oPrev.style.display='block';
+		oNext.style.display='block';
+	};
+	oBox.onmouseout=function(){
+		oPrev.style.display='none';
+		oNext.style.display='none';
+	};
+	
+	for(var i=0; i<aBtn.length; i++){
+		(function(index){
+			aBtn[i].onclick=function(){
+				iNow=Math.floor(iNow/aBtn.length)*aBtn.length+index;
+				tab();
+			}
+		})(i);
+	}
+	function tab(){
+		for(var i=0; i<aBtn.length; i++){
+			aBtn[i].className='';
+		}
+		if(iNow>0){
+			aBtn[iNow%aBtn.length].className='active';	
+		}else{
+			aBtn[(iNow%aBtn.length+aBtn.length)%aBtn.length].className='active';		
+		}
+		startMove(oUl,-iNow*aLi[0].offsetWidth);		
+	}
+	
+	oNext.onclick=function(){
+		iNow++;
+		tab();
+	};
+	oPrev.onclick=function(){
+		iNow--;
+		tab();
+	};
+	
+	var left=0;
+	var timer=null;
+	function startMove(obj,iTarget){
+		clearInterval(timer);
+		var count=Math.floor(700/30);
+		var start=left;
+		var dis=iTarget-start;
+		var n=0;
+		
+		timer=setInterval(function(){
+			n++;
+			
+			var a=1-n/count;
+			left=start+dis*(1-Math.pow(a,3));
+			
+			if(left<0){
+				obj.style.left=left%W+'px';	
+			}else{
+				obj.style.left=(left%W-W)%W+'px';		
+			}
+			
+			if(n==count){
+				clearInterval(timer);
+			}
+		},30);
+	}
+};
+</script>
+</head>
+
+<body>
+<div id="box">
+	<a href="javascript:;" class="prev"></a>
+    <a href="javascript:;" class="next"></a>
+	<ul>
+    	<li><img src="img2/0.jpg"></li>
+    	<li><img src="img2/1.jpg"></li>
+    	<li><img src="img2/2.jpg"></li>
+    	<li><img src="img2/3.jpg"></li>
+    	<li><img src="img2/4.jpg"></li>
+    </ul>
+    <ol>
+    	<li class="active">0</li>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ol>
+</div>
+</body>
+</html>

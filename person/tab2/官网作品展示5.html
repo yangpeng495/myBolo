@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="author" content="智能社 - zhinengshe.com" />
+<meta name="copyright" content="智能社 - zhinengshe.com" />
+<meta name="description" content="智能社是一家专注于web前端开发技术的公司，目前主要提供JavaScript培训和HTML5培训两项服务，同时还推出了大量javascript基础知识教程，智能课堂为你带来全新的学习方法和快乐的学习体验。" />
+<title>智能社— http://www.zhinengshe.com</title>
+<style>
+*{ margin:0; padding:0; list-style:none;}
+body{ background:#ccc;}
+#box{ width:800px; height:358px; border:1px solid #000; margin:50px auto; position:relative; overflow:hidden;}
+#box ul{ position:absolute; left:0; top:90px;}
+#box ul li{ width:260px; height:179px; position:relative; float:left; padding:5px;}
+#box ul li img{ width:260px; height:179px; position:absolute; left:0; top:0;}
+#box ul li span{ width:100px; height:100px; position:absolute; left:50%; margin-left:-50px; top:50%; margin-top:-50px; font-size:30px; color:#000; text-align:center; background:#fff; line-height:100px; font-weight:bold;}
+</style>
+<script>
+window.onload=function(){
+	var oBox = document.getElementById('box');
+	var oUl = oBox.children[0];
+	var aLi = oUl.children;
+	var aImg = oUl.getElementsByTagName('img');
+	oUl.style.width=aLi.length*aLi[0].offsetWidth+'px';
+	var DivC = oBox.offsetWidth/2;
+	
+	//接下来写的与程序无关
+	/*for(var i=0;i<aLi.length;i++){
+		var oSpan = document.createElement('span');
+		oSpan.innerHTML=i;
+		
+		aLi[i].appendChild(oSpan);
+	}*/
+	
+	//var aSpan = document.getElementsByTagName('span');
+	oUl.onmousedown=function(ev){
+		var oEvent = ev||event;
+		var disX = oEvent.clientX-oUl.offsetLeft;
+		document.onmousemove=function(ev){
+			var oEvent = ev||event;
+			var left = oEvent.clientX-disX;
+			document.title=left;
+			if(left>DivC-(1-0.5)*aLi[0].offsetWidth){
+				left=DivC-(1-0.5)*aLi[0].offsetWidth;
+			}
+			if(left<DivC-(aLi.length-0.5)*aLi[0].offsetWidth){
+				left=DivC-(aLi.length-0.5)*aLi[0].offsetWidth;
+			}
+			oUl.style.left=left+'px';
+			setSize();
+		};
+		document.onmouseup=function(){
+			document.onmousemove=null;
+			document.onmouseup=null;
+		};
+		return false;
+	};
+	oUl.style.left=DivC-(3-0.5)*aLi[0].offsetWidth+'px';
+	function setSize(){
+		for(var i=0;i<aImg.length;i++){
+			var l = Math.abs(DivC-(aLi[i].offsetWidth/2+aLi[i].offsetLeft+oUl.offsetLeft));
+			var scale = 1-l/500;
+			scale<0.5&&(scale=0.5);
+			//aSpan[i].innerHTML=scale;
+			aImg[i].style.width=520*scale+'px';
+			aImg[i].style.height=358*scale+'px';
+			aImg[i].style.marginLeft=-260*scale/2+'px';
+			aImg[i].style.marginTop=-179*scale/2+'px';
+			aLi[i].style.zIndex=scale*10000;
+		}
+	}
+	setSize();
+};
+</script>
+</head>
+
+<body>
+<div id="box">
+	<ul>
+    	<li><img src="img3/1.jpg"></li>
+        <li><img src="img3/2.jpg"></li>
+        <li><img src="img3/3.jpg"></li>
+        <li><img src="img3/4.jpg"></li>
+        <li><img src="img3/5.jpg"></li>
+        <li><img src="img3/6.jpg"></li>
+        <li><img src="img3/7.jpg"></li>
+        <li><img src="img3/8.jpg"></li>
+    </ul>
+</div>
+</body>
+</html>

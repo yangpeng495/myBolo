@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <link rel="stylesheet" href="css/reset.min.css"/>
+    <link rel="stylesheet" href="css/swiper.min.css"/>
+    <link rel="stylesheet" href="css/animate.css"/>
+    <link rel="stylesheet" href="css/index.css"/>
+    <script>
+        //REM适配
+        ~(function (desW) {
+            var winW = document.documentElement.clientWidth;
+            var n = winW / desW;
+            document.documentElement.style.fontSize = n * 100 + "px";
+        })(640);
+    </script>
+</head>
+<body>
+<div class="main">
+    <div class="music">
+        <audio src="audio/beyond.mp3" loop preload="none" id="audioMusic"></audio>
+    </div>
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <!--1-->
+            <div class="swiper-slide slide1">
+                <img src="img/pop-text1.jpg" alt=""/>
+                <img src="img/pop-text2.jpg" alt=""/>
+                <img src="img/pop-text3.jpg" alt=""/>
+                <img src="img/pop-text4.jpg" alt=""/>
+                <img src="img/pop-text5.jpg" alt=""/>
+
+                <div class="txtBg">
+                    <span>个人简历</span>
+                    <span>hi,我是</span>
+                    <span>杨鹏</span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            <!--2-->
+            <div class="swiper-slide slide2">
+                <i></i>
+                <h1>基本资料</h1>
+                <div class="txtBg1">
+                    <span>姓名:</span>
+                    <span>杨鹏</span>
+                    <span>QQ :</span>
+                    <span>114745108</span>
+                    <span>手机:</span>
+                    <span>15210540725</span>
+                    <span>邮箱:</span>
+                    <span>114745108@qq.com</span>
+                    <span>住址:</span>
+                    <span>北京市海淀区</span>
+                    <p></p>
+                    <s></s>
+                </div>
+            </div>
+            <!--3-->
+            <div class="swiper-slide">
+                <div class="txtBg2">
+                    <h3>技能展示</h3>
+                    <p></p>
+                    <p></p>
+                    <p></p>
+                    <p></p>
+                    <p></p>
+                    <p></p>
+                    <p id="lit"></p>
+                </div>
+            </div>
+            <!--4-->
+            <div class="swiper-slide slide4">
+                <div class="txtBg3">
+                    <h3>教育背景</h3>
+                    <li class="a1"></li>
+                    <li class="a2"></li>
+                    <li class="a3"></li>
+                    <ul>
+                        <span>毕业学校</span>
+                        <span>河南省经贸学院</span>
+                        <span>专业</span>
+                        <span>市场营销</span>
+                    </ul>
+                </div>
+            </div>
+            <div class="swiper-slide slide5">
+                <div class="txtBg4">
+                    <p></p>
+                    <p></p>
+                    <h1>自我评价</h1>
+                    <ul>
+                        <li>好钻研，向往前沿技术，具有极客精神；</li>
+                        <li>自学能力强，有信心应对不同技术的项目开发工作；</li>
+                        <li>沟通能力强，能够很快融入到团队；</li>
+                        <li>爱好竞技游戏，户外活动。</li>
+                        <li>勿忘初心 方得始终；</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script src="js/swiper.min.js"></script>
+<script src="js/index.js"></script>

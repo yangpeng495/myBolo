@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>仿拉钩网效果</title>
+<style>
+* {margin:0; padding:0; list-style:none;}
+#ul1 {width:1380px; margin:60px auto;}
+#ul1 li {width:324px; height:186px; margin:10px; float:left; position:relative; overflow:hidden;}
+#ul1 li span {width:324px; height:186px; background:#FFFF80; text-align:center; line-height:200px; font-size:36px; color:#fff; left:-324px; top:0; display:block; position:absolute; opacity:0.7; cursor:pointer; color:#00F;}
+#ul1 li img {width:324px; height:186px;}
+</style>
+<script src="move.js"></script>
+<script>
+function hoverDir(obj, ev){
+	var w = obj.offsetWidth;
+	var h = obj.offsetHeight;
+	var scrollT=document.documentElement.scrollTop||document.body.scrollTop;
+	var x = obj.offsetLeft+w/2-ev.clientX;
+	var y = obj.offsetTop+h/2-(ev.clientY+scrollT);
+	
+	return Math.round((Math.atan2(y,x)*180/Math.PI+180)/90)%4;	
+}
+window.onload=function (){
+	var oUl = document.getElementById('ul1');
+	var aLi = oUl.children;
+	
+	for(var i=0; i<aLi.length; i++){
+		aLi[i].onmouseover=function (ev){
+			var oEvent = ev || event;
+			var oFrom = oEvent.fromElement || oEvent.relatedTarget;
+			var oSpan = this.getElementsByTagName('span')[0];
+			if(this.contains(oFrom))return;
+			var n = hoverDir(this,oEvent);
+			switch(n){
+				case 0:
+					oSpan.style.left = 324+'px';
+					oSpan.style.top = 0+'px';
+				break;
+				case 1:
+					oSpan.style.left = 0+'px';
+					oSpan.style.top = 324+'px';
+				break;
+				case 2:
+					oSpan.style.left = -324+'px';
+					oSpan.style.top = 0+'px';
+				break;
+				case 3:
+					oSpan.style.left = 0+'px';
+					oSpan.style.top = -324+'px';
+				break;	
+			}
+			move(oSpan, {left:0, top:0})
+		};
+		aLi[i].onmouseout=function (ev){
+			var oEvent = ev || event;
+			var oTo = oEvent.toElement || oEvent.relatedTarget;
+			var oSpan = this.getElementsByTagName('span')[0];
+			if(this.contains(oTo))return;
+			var n = hoverDir(this,oEvent);
+			switch(n){
+				case 0:
+					move(oSpan, {left:324, top:0});
+				break;
+				case 1:
+					move(oSpan, {left:0, top:324});
+				break;
+				case 2:
+					move(oSpan, {left:-324, top:0});
+				break;
+				case 3:
+					move(oSpan, {left:0, top:-324});
+				break;	
+			}
+		};	
+	}	
+};
+</script>
+</head>
+
+<body>
+<ul id="ul1">
+	<li><img src="images/1.jpg" /><span>漂亮的美女one</span></li>
+    <li><img src="images/2.jpg" /><span>漂亮的美女two</span></li>
+    <li><img src="images/3.jpg" /><span>漂亮的美女three</span></li>
+    <li><img src="images/4.jpg" /><span>漂亮的美女four</span></li>
+    <li><img src="images/5.jpg" /><span>漂亮的美女five</span></li>
+    <li><img src="images/6.jpg" /><span>漂亮的美女six</span></li>
+    <li><img src="images/7.jpg" /><span>漂亮的美女seven</span></li>
+    <li><img src="images/8.jpg" /><span>漂亮的美女eight</span></li>
+</ul>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Document</title>
+<style type="text/css">
+*{margin: 0;padding: 0;list-style: none;}
+#box{width: 666px; margin:0 auto; overflow: hidden;}
+ul{width:200px;  float: left; margin:10px;}
+ul li img{ width:200px;  background:#ccc; margin:10px 0;}
+</style>
+<script type="text/javascript">
+function rnd(n,m){
+	return parseInt(n+Math.random()*(m-n));
+}
+function createLi(){
+	var oImg = document.createElement('img');
+	oImg.style.height=rnd(150,301)+'px';
+	return oImg;
+}
+
+window.onload=function(){
+	var oBox = document.body.children[0];
+	var aUl = document.getElementsByTagName('ul');
+	function createLi20(){
+		for(var i=0;i<20;i++){
+			var oImg = createLi();
+			oImg.src="img3/"+(i+1)+".jpg";
+			
+			var arr = [];
+			for(var j=0;j<aUl.length;j++){
+				arr.push(aUl[j]);
+			}
+			arr.sort(function(u1,u2){
+				return u1.offsetHeight-u2.offsetHeight;
+			});
+			arr[0].children[0].appendChild(oImg);
+		}
+	}
+	createLi20();
+	window.onscroll=function(){
+		var scrollT = document.documentElement.scorllTop||document.body.scrollTop;
+		var winH = document.documentElement.clientHeight;
+		var scrollBottom = scrollT+winH;
+		if(scrollBottom>=document.body.scrollHeight-500){
+			createLi20();
+		}
+	};
+};
+</script>
+</head>
+<body>
+<div id="box">
+	<ul><li><img src="img3/1.jpg"></li></ul>
+	<ul><li></li></ul>
+	<ul><li></li></ul>
+</div>	
+</body>
+</html>

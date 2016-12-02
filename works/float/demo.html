@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="author" content="智能社 - zhinengshe.com" />
+<meta name="copyright" content="智能社 - zhinengshe.com" />
+<meta name="description" content="智能社是一家专注于web前端开发技术的公司，目前主要提供JavaScript培训和HTML5培训两项服务，同时还推出了大量javascript基础知识教程，智能课堂为你带来全新的学习方法和快乐的学习体验。" />
+<title>fenkuai</title>
+<style>
+*{ margin:0; padding:0;}
+#box{ width:700px; height:400px; background:url(img3/0.jpg) no-repeat; position:relative; margin:10px auto;}
+#box span{ position:absolute; background:url(img3/0.jpg) no-repeat; opacity:0;}
+</style>
+<script src="move.js"></script>
+<script>
+window.onload=function(){
+	var oBox=document.getElementById('box');
+	var oBtn=document.getElementById('btn1');
+	
+	var R=10;
+	var C=10;
+	var iRnd = 0;
+	var timer=null;
+	
+	for(var r=0; r<R; r++){
+		for(var c=0; c<C; c++){
+			var oSpan=document.createElement('span');
+			oSpan.style.width=oBox.offsetWidth/C+'px';
+			oSpan.style.height=oBox.offsetHeight/R+'px';
+			oBox.appendChild(oSpan);
+			oSpan.style.left=c*oSpan.offsetWidth+'px';
+			oSpan.style.top=r*oSpan.offsetHeight+'px';
+			oSpan.style.backgroundPosition='-'+c*oSpan.offsetWidth+'px -'+r*oSpan.offsetHeight+'px';
+			
+			oSpan.r=r;
+			oSpan.c=c;
+		}
+	}
+	
+	var iNow=0;
+	var bReady=true;
+	
+	var aSpan=oBox.children;
+	function method1(n){
+		return aSpan[n].r+aSpan[n].c;
+	};
+	function method2(n){
+		return aSpan[n].r-aSpan[n].c;
+	};
+	function method3(n){
+		return Math.random();
+	};
+	oBtn.onclick=function(){
+		
+		iNow++;
+		iRnd = iNow%3+1;
+		if(iNow%3==0){
+			oBox.style.backgroundImage='url(img3/2.jpg)';
+		}else{
+			oBox.style.backgroundImage='url(img3/'+(iNow%3-1)+'.jpg)';	
+		}
+		switch(iRnd){
+			case 1 :
+				for(var i=0; i<aSpan.length; i++){
+					(function(index){
+						var n = method1(index);
+						timer=setTimeout(function(){
+							aSpan[index].style.backgroundImage='url(img3/'+iNow%3+'.jpg)';
+							aSpan[index].style.opacity=0;
+							move(aSpan[index],{opacity:1});
+							
+						},100*n);
+					})(i);
+				}
+				break;
+			case 2 :
+				for(var i=0; i<aSpan.length; i++){
+					(function(index){
+						var n = method2(index);
+						timer=setTimeout(function(){
+							aSpan[index].style.backgroundImage='url(img3/'+iNow%3+'.jpg)';
+							aSpan[index].style.opacity=0;
+							move(aSpan[index],{opacity:1});
+							
+						},100*n);
+					})(i);
+				}
+				break;
+			case 3 :
+				for(var i=0; i<aSpan.length; i++){
+					(function(index){
+						var n = method3(index);
+						timer=setTimeout(function(){
+							aSpan[index].style.backgroundImage='url(img3/'+iNow%3+'.jpg)';
+							aSpan[index].style.opacity=0;
+							move(aSpan[index],{opacity:1});
+							
+						},100*n);
+					})(i);
+				}
+				break;
+		}
+		
+	};
+};
+</script>
+</head>
+
+<body>
+<input type="button" value="换一个" id="btn1">
+<div id="box">
+	
+</div>
+</body>
+</html>

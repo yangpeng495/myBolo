@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Document</title>
+<style type="text/css">
+*{margin: 0;padding: 0;}
+body{background:#ccc; }
+div{float:left; margin-right:100px;}
+#s{width:350px; height:350px; background: url(s.jpg) no-repeat; position: relative; top:0; left:0;}
+#mask{position: absolute; top:0; left:0; background:yellow; width:100px; height:100px; opacity: 0.3; filter:alpha(opacity:30); display: none;}
+#b{width:350px; height:350px; overflow: hidden; position: relative; top:0; left:0; display: none;}
+#b img{position:absolute; left:0; top:0;}
+</style>
+<script type="text/javascript">
+function getPos(obj){
+	var l = 0;
+	var t = 0;
+	while(obj){
+		l+=obj.offsetLeft;
+		t+=obj.offsetTop;
+		obj = obj.offsetParent;
+	}
+	return {left:l,top:t};
+}
+window.onload=function(){
+	var oS = document.getElementById('s');
+	var oM = document.getElementById('mask');
+	var oB = document.getElementById('b');
+	var oImg = oB.children[0];
+	oS.onmouseover=function(){
+		oM.style.display='block';
+		oB.style.display='block';
+	};
+	oS.onmouseout=function(){
+		oM.style.display='none';
+		oB.style.display='none';
+	};
+	oS.onmousemove=function(ev){
+		var oEvent = ev||event;
+		var scrollT = document.documentElement.scrollTop||document.body.scrollTop;
+		var scrollL = document.documentElement.scrollLeft||document.body.scrollLeft;
+		var l = oEvent.clientX-getPos(oS).left-oM.offsetWidth/2+scrollL;
+		var t = oEvent.clientY-getPos(oS).top-oM.offsetHeight/2+scrollT;
+
+		if(l<0){
+			l=0;
+		}else if(l>oS.offsetWidth-oM.offsetWidth){
+			l=oS.offsetWidth-oM.offsetWidth;
+		}
+		if(t<0){
+			t=0;
+		}else if(t>oS.offsetHeight-oM.offsetHeight){
+			t=oS.offsetHeight-oM.offsetHeight;
+		}
+
+		oM.style.left=l+'px';
+		oM.style.top=t+'px';
+		oImg.style.left=-l/(oS.offsetWidth-oM.offsetWidth)*(oImg.offsetWidth-oB.offsetWidth)+'px';
+		oImg.style.top=-t/(oS.offsetHeight-oM.offsetHeight)*(oImg.offsetHeight-oB.offsetHeight)+'px';
+	};
+};
+</script>
+</head>
+<body>
+	<div id="s">
+		<span id="mask"></span>
+	</div>
+	<div id="b">
+		<img src="b.jpg" />
+	</div>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+*{margin:0; padding:0; list-style:none;}
+#box{width:600px; height:337px; margin:50px auto; position:relative; top:0; left:0; overflow:hidden;}
+#box ul{height:337px; position:absolute; left:0; top:0;}
+#box ul li{width:600px; height:337px; float:left;}
+#box ul li img{width:100%;}
+#box ol{width:500px; position:absolute; bottom:30px; left:50%; margin-left:-250px;}
+#box ol li{width:80px;height:10px; background:#ccc; float:left; margin:10px; position:relative; top:0; left:0;}
+#box ol li span{position:absolute; left:0; top:0;width:0; height:100%; background:red;}
+</style>
+<script src="move.js"></script>
+<script>
+window.onload=function(){
+	var oBox = document.getElementById('box');
+	var oUl = oBox.children[0];
+	var aLi = oUl.children;
+	var oOl = oBox.children[1];
+	var aLi2 = oOl.children;
+	var aSpan = oOl.getElementsByTagName('span');
+	//算ul宽度
+	oUl.style.width=aLi.length*aLi[0].offsetWidth+'px';
+		
+	var iNow = 0;
+	function next(){
+		for(var i=0;i<aSpan.length;i++){
+			aSpan[i].style.width=0;
+		}
+		startMove(aSpan[iNow],{width:80},{end:function(){
+			iNow++;
+			if(iNow==aLi.length)iNow=0;
+			startMove(oUl,{left:-iNow*aLi[0].offsetWidth},{end:next});
+		}});
+	}
+	next();
+};
+</script>
+</head>
+
+<body>
+<div id="box">
+	<ul>
+    	<li><img src="img/0.jpg" /></li>
+    	<li><img src="img/1.jpg" /></li>
+    	<li><img src="img/2.jpg" /></li>
+    	<li><img src="img/3.jpg" /></li>
+    	<li><img src="img/4.jpg" /></li>
+    </ul>
+    <ol>
+    	<li><span></span></li>
+    	<li><span></span></li>
+    	<li><span></span></li>
+    	<li><span></span></li>
+    	<li><span></span></li>
+    </ol>
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

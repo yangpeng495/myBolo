@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>瀑布流</title>
+<style>
+*{ margin:0; padding:0; list-style:none;}
+#box{ width:966px; margin:0 auto;}
+#box ul{ width:300px; margin:10px; float:left;}
+#box ul li{ width:300px; margin:10px 0px; border:1px solid #ccc;}
+#box ul li img{ display:block; width:300px;}
+
+#layer{ width:100%; height:100%; position:fixed; left:0; top:0; background:#000; opacity:0.4; display:none;}
+#loading{ width:100px; height:100px; position:fixed; left:50%; top:50%; margin:-50px 0 0 -50px; font-size:30px; color:#fff; font-weight:bold; font-family:微软雅黑; display:none;}
+</style>
+<script src="js/ajax.js"></script>
+<script>
+window.onload=function(){
+	var oBox=document.getElementById('box');
+	var aUl=oBox.children;
+	var oLayer=document.getElementById('layer');
+	var oLoading=document.getElementById('loading');
+	
+	var nowPage=1;
+	
+	function getData(){
+		ajax({
+			url:'js/flow.php',
+			data:{
+				page:nowPage	
+			},
+			fnLoading:function(){
+				oLayer.style.display='block';
+				oLoading.style.display='block';
+			},
+			success:function(str){
+				oLayer.style.display='none';
+				oLoading.style.display='none';
+				
+				var json=eval('('+str+')');	
+				if(json.error){
+					alert('获取图片失败了');	
+				}else{
+					var arr=json.msg;
+					
+					for(var i=0; i<arr.length; i++){
+						var oLi=document.createElement('li');
+						oLi.innerHTML='<a href="'+arr[i].url+'"><img src="'+arr[i].image+'"></a>';
+						oLi.style.height=300*arr[i].height/arr[i].width+'px';
+						
+						var arr2=[];
+						for(var j=0; j<aUl.length; j++){
+							arr2[j]=aUl[j];
+						}
+						arr2.sort(function(ul1,ul2){
+							return ul1.offsetHeight-ul2.offsetHeight;
+						});
+						
+						arr2[0].appendChild(oLi);
+					}
+				}
+			}	
+		});	
+	}
+	getData();
+	window.onscroll=function(){
+		var scrollT=document.documentElement.scrollTop || document.body.scrollTop;
+		var scrollBottom=scrollT+document.documentElement.clientHeight;
+		
+		if(scrollBottom>=document.body.scrollHeight){
+			nowPage++;
+			getData();	
+		}
+	};
+};
+</script>
+</head>
+
+<body>
+<div id="box">
+	<ul></ul>
+    <ul></ul>
+    <ul></ul>
+</div>
+<div id="layer"></div>
+<div id="loading">
+	Loading...
+</div>
+</body>
+</html>

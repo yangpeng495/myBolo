@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style>
+p {width:100px; height:36px; text-align:center; line-height:36px; font-size:16px; font-weight:bold; color:#fff; background:#6CF; position:absolute; left:50%; top:0; margin-left:-50px; cursor:pointer; opacity:1; filter:alpha(opacity:100);}
+#div1 {width:600px; height:600px; position:absolute; left:50%; bottom:100px; margin-left:-300px; overflow:hidden;}
+#div1 span {position:absolute; top:-300px; display:inline-block; width:20px; height:20px; text-align:center; line-height:10px; font-weight:bold;}
+</style>
+<script src="jquery-1.7.2.js"></script>
+<script>
+function rnd(n,m){
+	return parseInt(Math.random()*(m-n+1)+n);	
+}
+$(function (){
+	var oDiv = $('#div1');
+	var oBtn = $('p');
+	var bReady = false;
+	
+	
+	function ceateSpan(){
+		var len = rnd(1,30);
+		
+		for(var i=0; i<len; i++){
+			var time = rnd(1000,3000);
+			var oSpan = $('<span></span>');
+			oSpan.html(rnd(1,10));
+			oSpan.appendTo(oDiv);
+			oSpan.css('left',rnd(0,600)+'px');
+			oSpan.css('color', 'rgb('+rnd(0,255)+','+rnd(0,255)+','+rnd(0,255)+')');
+			oSpan.css('fontSize', rnd(16,38)+'px')
+			oSpan.stop().animate({top:'620px'},{duration:rnd(1000,5000),easing:'linear',complete:function (){
+				$(this).remove();	
+			}});
+		}
+		
+	}
+	var timer = null;
+	oBtn.click(function (){
+		$(this).stop().animate({opacity:0},{complete:function (){
+			$(this).remove;	
+		}});
+		ceateSpan();
+		
+		
+		timer = setInterval(function (){
+			ceateSpan(); //速度
+			
+		},rnd(1000,1500));
+		
+		
+	});	
+})
+</script>
+</head>
+
+<body>
+
+<div id="div1">
+<p>点我试试</p>
+</div>
+</body>
+</html>

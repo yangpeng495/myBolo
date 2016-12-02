@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+*{margin:0; padding:0; list-style:none;}
+#box{width:600px; height:337px; position:relative; top:0; left:0; margin:10px auto; overflow:hidden;}
+ul{height:337px; position:absolute; top:0; left:0;}
+ul li{width:600px; height:337px; float:left;}
+ul li img{width:100%;}
+ol{position:absolute; bottom:30px; width:200px; left:50%; margin-left:-100px; }
+ol li{float:left; width:20px; height:20px;  background:rgba(4,0,0,0.5); margin:10px; border-radius:50%;}
+ol li.on{background:rgba(0,200,200,0.5);}
+</style>
+<script src="doMove.js"></script>
+<script>
+window.onload=function(){
+	var oBox = document.getElementById('box');
+	var oUl = oBox.children[0];
+	var aLi = oUl.children;
+	var oOl = oBox.children[1];
+	var aBtn = oOl.children;
+	for(var i=0;i<aBtn.length;i++){
+		(function(index){
+			aBtn[index].onclick=function(){
+				for(var i=0;i<aBtn.length;i++){
+					aBtn[i].className='';
+				}
+				this.className='on';
+				var fx = Tween.Elastic.easeOut;
+				doMove(oUl,{top:-index*aLi[0].offsetHeight},{type:fx});
+			};
+		})(i);
+	}
+};
+</script>
+</head>
+
+<body>
+<div id="box">
+	<ul>
+    	<li><img src="img/0.jpg" /></li>
+    	<li><img src="img/1.jpg" /></li>
+    	<li><img src="img/2.jpg" /></li>
+    	<li><img src="img/3.jpg" /></li>
+    	<li><img src="img/4.jpg" /></li>
+    </ul>
+    <ol>
+    	<li class="on"></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    </ol>
+</div>
+</body>
+</html>
